@@ -1,49 +1,45 @@
 //
-//  GameTableViewController.swift
+//  DetailedGameViewController.swift
 //  0418_PracTable
 //
-//  Created by 이성주 on 18/04/2019.
+//  Created by admin on 19/04/2019.
 //  Copyright © 2019 sjlee. All rights reserved.
 //
 
 import UIKit
 
-class GameTableViewController: UITableViewController {
+class DetailedGameViewController: UITableViewController {
 
+    var game : Game?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        modifyGameList()
+        self.title = game?.name
     }
 
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return gameList.count
+       /* guard let rowCount = game?.count else{
+            return 0
+        }*/
+        
+        return 1
     }
+
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Game", for: indexPath)
-
-        // Configure the cell...
-
-        cell.textLabel?.text = gameList[indexPath.row].name
-        cell.detailTextLabel?.text = String(gameList[indexPath.row].price)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GameDetailedInfo", for: indexPath)
         
+        cell.textLabel?.text = game?.name
+        cell.detailTextLabel?.text = "developer : \(game?.developer) + genre : \(game?.genre) + price : \(game?.price)"
+
         return cell
     }
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -55,7 +51,7 @@ class GameTableViewController: UITableViewController {
 
     /*
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -80,19 +76,14 @@ class GameTableViewController: UITableViewController {
     }
     */
 
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "DetailedSegue"){
-            guard let destination = segue.destination as? ViewController, let selectedIndex = self.tableView.indexPathForSelectedRow?.row else{
-                return
-            }
-            destination.game = gameList[selectedIndex]
-            
-        }
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
     }
- 
+    */
 
 }
